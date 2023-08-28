@@ -1,0 +1,46 @@
+.modal {
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	left: 0;
+	top: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	&.open {
+		display: flex;
+	}
+	&__footer {
+		display: flex;
+		align-items: center;
+		gap: 30px;
+		justify-content: center;
+	}
+	&__box {
+		max-width: 642px;
+		width: 100%;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: 0px 12px 16px 0px rgba(125, 125, 125, 0.25);
+		padding: 30px;
+	}
+	.step {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		color: #fff;
+		font-size: 18px;
+		font-weight: 500;
+		background-color: #56ccf2;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+	}
+	.part {
+		font-size: 16px;
+		font-weight: 500;
+		color: #000;
+	}
+}

@@ -1,0 +1,21 @@
+.card {
+	background-color: #4b5bc52b;
+	border-radius: 8px;
+	padding: 20px 24px;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+	letter-spacing: 0.1px;
+	.title {
+		color: var(--neutral-black, #25282b);
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 20px;
+		margin-bottom: 4px;
+	}
+	.nums {
+		color: var(--primary-default, #336cfb);
+		font-size: 18px;
+		line-height: 24px;
+	}
+}

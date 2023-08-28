@@ -1,0 +1,20 @@
+.header {
+	padding: 24px 35px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.search {
+	width: 350px;
+	display: flex;
+	gap: 12px;
+	padding: 13px 16px;
+	border-radius: 100px;
+	background: var(--neutral-white, #fff);
+	input {
+		color: var(--neutral-gray, #a0a4a8);
+		font-size: 13px;
+		line-height: 16px;
+		letter-spacing: 0.1px;
+	}
+}
