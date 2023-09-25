@@ -9,6 +9,7 @@
 				}}
 			</h4>
 			<form @submit.prevent="doctorEditModalToggle ? save() : postDoctor()">
+				<!-- name -->
 				<div class="col-12 col-sm-12 mb-20">
 					<input
 						class="input"
@@ -17,6 +18,7 @@
 						placeholder="Ism familiyasini kiriting"
 					/>
 				</div>
+				<!-- phone -->
 				<div class="col-12 col-sm-12 mb-20">
 					<input
 						class="input"
@@ -25,6 +27,7 @@
 						placeholder="Telefon raqamini kiriting"
 					/>
 				</div>
+				<!-- spec -->
 				<div class="col-12 col-sm-12 mb-20">
 					<select
 						class="input"
@@ -37,9 +40,24 @@
 						</option>
 					</select>
 				</div>
+				<!-- department -->
 				<div class="col-12 col-sm-12 mb-20">
-					<input class="input" type="date" v-model="doctor.bdate" />
+					<select
+						class="input"
+						v-model="doctor.department"
+						placeholder="Bo`lim nomini kiriting"
+					>
+						<option value="">Bo'limni ro'yxatdan tanlang</option>
+						<option v-for="dep in departments" :key="dep._id" :value="dep._id">
+							{{ dep.title }}
+						</option>
+					</select>
 				</div>
+				<!-- birtday -->
+				<div class="col-12 col-sm-12 mb-20">
+					<input class="input" type="date" v-model="doctor.birthday" />
+				</div>
+				<!-- region -->
 				<div class="col-12 col-sm-12 mb-20">
 					<select class="input" @change="getRegion" v-model="doctor.region">
 						<option value="">Viloyatni ro'yxatdan tanlang</option>
@@ -52,6 +70,7 @@
 						</option>
 					</select>
 				</div>
+				<!-- district -->
 				<div class="col-12 col-sm-12 mb-20">
 					<select class="input" v-model="doctor.district">
 						<option value="">Shahar/Tumanni ro'yxatdan tanlang</option>
@@ -86,6 +105,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import { regions, districts } from '@/db/places'
 export default {
+	props: ['editdoctor'],
 	data() {
 		return {
 			regions: regions,
@@ -94,6 +114,7 @@ export default {
 				spec: '',
 				region: '',
 				district: '',
+				department: '',
 			},
 			getDistricts: [],
 		}
@@ -114,11 +135,7 @@ export default {
 			}
 		},
 		postDoctor() {
-			if (
-				this.doctor.number &&
-				this.doctor.maxcount &&
-				this.doctor.department
-			) {
+			if (this.doctor.name && this.doctor.phone && this.doctor.department) {
 				this.addDoctor(this.doctor)
 				this.clear()
 			} else {
@@ -151,6 +168,14 @@ export default {
 	mounted() {
 		this.getAllDepartments()
 		this.getAllSpecs()
+	},
+	watch: {
+		doctorEditModalToggle(edit) {
+			console.log(this.editdoctor)
+			if (edit) {
+				this.doctor = this.editdoctor
+			}
+		},
 	},
 }
 </script>
