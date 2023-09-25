@@ -131,10 +131,11 @@ export default {
 		async edit(id) {
 			let res = await this.getRoom(id)
 			if (res?.status == 200) {
+				console.log(res.data)
 				this.toggle = true
 				this.editToggle = true
 				this.room = { ...res.data }
-				this.room.department = this.room.department._id
+				// this.room.department = this.room.department._id
 			}
 		},
 		remove(id) {

@@ -2,14 +2,17 @@
 	<section>
 		<div class="box">
 			<div class="d-flex justify-content-between align-items-center">
-				<div class="title">Xonalar</div>
+				<div class="title">Shifokorlar</div>
 			</div>
 			<table class="table">
 				<thead>
 					<tr>
 						<th>N</th>
-						<th>Xona raqami</th>
+						<th>Ismi</th>
+						<th>Raqami</th>
 						<th>Bo'lim</th>
+						<th>Mutaxassisslik</th>
+						<th>Tug'ulgan vaaqt</th>
 						<th>Sig'imi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
@@ -19,8 +22,11 @@
 				<tbody>
 					<tr v-for="(doctor, index) in doctors" :key="doctor._id">
 						<td>{{ index + 1 }}</td>
-						<td>{{ doctor.number }}</td>
+						<td>{{ doctor.name }}</td>
+						<td>{{ doctor.phone }}</td>
 						<td>{{ doctor.department }}</td>
+						<td>{{ doctor.spec }}</td>
+						<td>{{ doctor.birthday }}</td>
 						<td>{{ doctor.maxcount }}</td>
 						<td>{{ doctor.createdTime }}</td>
 						<td @click="edit(doctor._id)">edit</td>
@@ -32,7 +38,7 @@
 		<button class="add" @click="$store.commit('setDoctorModalToggle', true)">
 			<img src="@/assets/img/doctors.svg" alt="" />
 		</button>
-		<doctor-modal />
+		<doctor-modal :editdoctor="doctor" />
 	</section>
 </template>
 
@@ -41,17 +47,19 @@ import { mapGetters, mapActions } from 'vuex'
 import doctorModal from '../components/doctorModal.vue'
 export default {
 	components: { doctorModal },
+	data() {
+		return {
+			doctor: {},
+		}
+	},
 	methods: {
-		...mapActions(['getAllDoctors', 'deleteDoctor']),
+		...mapActions(['getAllDoctors', 'deleteDoctor', 'getDoctor']),
 		async edit(id) {
 			let res = await this.getDoctor(id)
 			if (res?.status == 200) {
 				this.$store.commit('setDoctorModalToggle', true)
-				this.$store.commit('setEditDoctorModalToggle', true)
-				// this.toggle = true
-				// this.editToggle = true
+				this.$store.commit('setDoctorEditModalToggle', true)
 				this.doctor = { ...res.data }
-				this.doctor.department = this.doctor.department._id
 			}
 		},
 		remove(id) {

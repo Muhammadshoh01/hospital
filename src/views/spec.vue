@@ -24,13 +24,6 @@
 					</tr>
 				</tbody>
 			</table>
-			<ul class="navigation">
-				<li><img src="@/assets/img/left.png" alt="" /></li>
-				<li class="active">1</li>
-				<li>2</li>
-				<li>3</li>
-				<li><img src="@/assets/img/right.png" alt="" /></li>
-			</ul>
 		</div>
 		<button class="add" @click="toggle = true">
 			<img src="@/assets/img/doctors.svg" alt="" />
@@ -51,7 +44,7 @@
 							type="text"
 							name="title"
 							v-model="spec.title"
-							placeholder="Bo'lim nomini kiriting"
+							placeholder="Mutaxassisslik nomini kiriting"
 							@keypress.enter="editToggle ? save() : add()"
 						/>
 					</div>
