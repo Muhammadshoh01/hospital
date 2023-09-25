@@ -45,21 +45,6 @@ export default {
 					title: 'Shifokorlar',
 					icon: 'doctors',
 				},
-				// {
-				// 	link: '/',
-				// 	title: 'Palatalar',
-				// 	icon: 'palata',
-				// },
-				// {
-				// 	link: '/',
-				// 	title: 'Doctorlar',
-				// 	icon: 'doctors',
-				// },
-				// {
-				// 	link: '/',
-				// 	title: 'Bemorlar',
-				// 	icon: 'bemor side',
-				// },
 			],
 		}
 	},
