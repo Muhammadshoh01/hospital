@@ -1,6 +1,6 @@
 .btn {
 	padding: 9px 50px;
-	width: 100%;
+	// width: 100%;
 	border-radius: 10px;
 	font-size: 16px;
 	&.success {
@@ -9,7 +9,8 @@
 	}
 	&.danger {
 		color: #fff;
-		background-color: $red;
+		background-color: #eb5757;
+		padding: 9px 35px;
 	}
 }
 

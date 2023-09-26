@@ -30,8 +30,20 @@
 		.link {
 			display: block;
 			font-size: 16px;
-			// text-decoration: underline;
+			&:hover {
+				text-decoration: underline;
+			}
 			letter-spacing: 0.1px;
+		}
+		.btn {
+			padding: 9px 50px;
+			font-size: 11px;
+			width: auto;
+		}
+		.auth__btn {
+			text-align: center;
+			width: 100%;
+			margin: 0 auto;
 		}
 	}
 }

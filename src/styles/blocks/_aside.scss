@@ -1,6 +1,7 @@
 @import '../lib/var';
 .aside {
-	width: 256px;
+	max-width: 256px;
+	width: 100%;
 	background: var(--neutral-white, #fff);
 	/* navigation menu / vertical shadow */
 	box-shadow: 4px 0px 16px 0px rgba(16, 30, 115, 0.08);
@@ -34,6 +35,13 @@
 			align-items: center;
 			gap: 12px;
 			padding: 14px 24px;
+
+			color: #52575c;
+			font-size: 14px;
+			font-weight: 700;
+			line-height: 20px;
+			letter-spacing: 0.1px;
+
 			&.router-link-active,
 			&:hover {
 				background-color: $blue;
