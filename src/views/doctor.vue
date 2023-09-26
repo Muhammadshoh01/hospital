@@ -7,30 +7,40 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>N</th>
-						<th>Ismi</th>
+						<th>№</th>
+						<th>Ism-sharif</th>
 						<th>Raqami</th>
 						<th>Bo'lim</th>
 						<th>Mutaxassisslik</th>
-						<th>Tug'ulgan vaaqt</th>
-						<th>Sig'imi</th>
-						<th>Yaratilgan vaqt</th>
-						<th></th>
+						<th>Tug'ilgan yili</th>
+						<th>Sana</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr v-for="(doctor, index) in doctors" :key="doctor._id">
+					<tr
+						v-for="(doctor, index) in doctors"
+						:key="doctor._id"
+						@click="$router.push(`/doctor/${doctor._id}`)"
+					>
 						<td>{{ index + 1 }}</td>
 						<td>{{ doctor.name }}</td>
 						<td>{{ doctor.phone }}</td>
 						<td>{{ doctor.department }}</td>
 						<td>{{ doctor.spec }}</td>
 						<td>{{ doctor.birthday }}</td>
-						<td>{{ doctor.maxcount }}</td>
 						<td>{{ doctor.createdTime }}</td>
-						<td @click="edit(doctor._id)">edit</td>
-						<td><button @click="remove(doctor._id)">X</button></td>
+						<td>
+							<button @click.stop="$router.push(`/doctor/${doctor._id}`)">
+								<img src="../assets/img/eye.svg" />
+							</button>
+							<button @click.stop="edit(doctor._id)">
+								<img src="../assets/img/edit.svg" />
+							</button>
+							<button @click.stop="remove(doctor._id)">
+								<img src="../assets/img/remove.svg" />
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -76,5 +86,3 @@ export default {
 	},
 }
 </script>
-
-<style></style>

@@ -11,7 +11,6 @@
 						<th>Nomi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -19,8 +18,14 @@
 						<td>{{ index + 1 }}</td>
 						<td>{{ spec.title }}</td>
 						<td>{{ spec.createdTime }}</td>
-						<td @click="edit(spec._id)">edit</td>
-						<td><button @click="remove(spec._id)">X</button></td>
+						<td align="right">
+							<button @click.stop="edit(spec._id)">
+								<img src="../assets/img/edit.svg" />
+							</button>
+							<button @click.stop="remove(spec._id)">
+								<img src="../assets/img/remove.svg" />
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>

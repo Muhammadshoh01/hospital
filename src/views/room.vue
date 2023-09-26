@@ -13,7 +13,6 @@
 						<th>Sig'imi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -23,8 +22,14 @@
 						<td>{{ room.department }}</td>
 						<td>{{ room.maxcount }}</td>
 						<td>{{ room.createdTime }}</td>
-						<td @click="edit(room._id)">edit</td>
-						<td><button @click="remove(room._id)">X</button></td>
+						<td align="right">
+							<button @click.stop="edit(room._id)">
+								<img src="../assets/img/edit.svg" />
+							</button>
+							<button @click.stop="remove(room._id)">
+								<img src="../assets/img/remove.svg" />
+							</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -37,8 +42,8 @@
 				<h4 class="text-center mb-20">
 					{{ editToggle ? 'Xonani tahrirlash' : "Yangi xona qo'shish" }}
 				</h4>
-				<form @submit.prevent="editToggle ? save() : postRoom()">
-					<div class="col-12 col-sm-12 mb-20">
+				<form class="row" @submit.prevent="editToggle ? save() : postRoom()">
+					<div class="col-6 col-sm-12 mb-20">
 						<input
 							class="input"
 							type="text"
@@ -46,7 +51,7 @@
 							placeholder="Xona raqamini kiriting"
 						/>
 					</div>
-					<div class="col-12 col-sm-12 mb-20">
+					<div class="col-6 col-sm-12 mb-20">
 						<input
 							class="input"
 							type="text"
@@ -54,12 +59,8 @@
 							placeholder="Xona sig'imini kiriting"
 						/>
 					</div>
-					<div class="col-12 col-sm-12 mb-20">
-						<select
-							class="input"
-							v-model="room.department"
-							placeholder="Bo`lim nomini kiriting"
-						>
+					<div class="col-6 col-sm-12 mb-20">
+						<select class="input" v-model="room.department">
 							<option value="">Ro'yxatdan tanlang</option>
 							<option
 								v-for="department in departments"
