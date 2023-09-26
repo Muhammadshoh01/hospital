@@ -6,6 +6,9 @@ import { department } from '../data/department'
 import { spec } from '../data/spec'
 import { room } from '../data/room'
 import { doctor } from '../data/doctor'
+import { position } from '../data/position'
+import { historyDoctor } from '../data/historyDoctor'
+import { patsient } from '../data/patsient'
 
 export const modules = {
 	layout,
@@ -16,4 +19,7 @@ export const modules = {
 	spec,
 	room,
 	doctor,
+	position,
+	historyDoctor,
+	patsient,
 }
