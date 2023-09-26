@@ -8,6 +8,8 @@ export const doctor = {
 			countDoctor: 0,
 			doctorModalToggle: false,
 			doctorEditModalToggle: false,
+			doctorHistoryToggle: false,
+			doctorEditHistoryToggle: false,
 		}
 	},
 	getters: {
@@ -28,6 +30,12 @@ export const doctor = {
 		},
 		doctorEditModalToggle(state) {
 			return state.doctorEditModalToggle
+		},
+		doctorHistoryToggle(state) {
+			return state.doctorHistoryToggle
+		},
+		doctorEditHistoryToggle(state) {
+			return state.doctorEditHistoryToggle
 		},
 	},
 	mutations: {
@@ -68,6 +76,12 @@ export const doctor = {
 		setDoctorEditModalToggle(state, payload) {
 			state.doctorEditModalToggle = payload
 		},
+		setDoctorHistoryToggle(state, payload) {
+			state.doctorHistoryToggle = payload
+		},
+		setDoctorEditHistoryToggle(state, payload) {
+			state.doctorEditHistoryToggle = payload
+		},
 	},
 	actions: {
 		async getAllDoctors(context) {
@@ -86,7 +100,7 @@ export const doctor = {
 				context.commit('newDoctor', res.data)
 				context.commit('setNotif', {
 					type: 'success',
-					text: "Yangi xonshifokora qo'shildi",
+					text: "Yangi shifokor qo'shildi",
 				})
 			}
 		},
