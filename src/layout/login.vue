@@ -23,7 +23,9 @@
 						@click.prevent="toggle = false"
 						>Ro'yxatdan o'tish</a
 					>
-					<button class="btn success text-center">Kirish</button>
+					<div class="auth__btn">
+						<button class="btn success text-center">Kirish</button>
+					</div>
 				</form>
 			</div>
 			<div class="box" v-else>
@@ -53,7 +55,9 @@
 						@click.prevent="toggle = true"
 						>Tizimga kirish</a
 					>
-					<button class="btn success text-center">Registratsiya</button>
+					<div class="auth__btn">
+						<button class="btn success text-center">Registratsiya</button>
+					</div>
 				</form>
 			</div>
 		</div>

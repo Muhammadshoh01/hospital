@@ -45,6 +45,16 @@ export default {
 					title: 'Shifokorlar',
 					icon: 'doctors',
 				},
+				{
+					link: '/position',
+					title: 'Lavozimlar',
+					icon: 'palata',
+				},
+				{
+					link: '/patsient',
+					title: 'Bemorlar',
+					icon: 'doctors',
+				},
 			],
 		}
 	},
