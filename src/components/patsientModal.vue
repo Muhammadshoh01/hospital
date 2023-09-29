@@ -8,7 +8,10 @@
 						: 'Yangi bemorni ro’yxatdan o’tkazish'
 				}}
 			</h4>
-			<form @submit.prevent="patsientEditModalToggle ? save() : postPatsient()">
+			<form
+				@submit.prevent="patsientEditModalToggle ? save() : postPatsient()"
+				id="patsientForm"
+			>
 				<div v-if="step == 1">
 					<div class="step">1</div>
 					<div class="part mt-10 mb-10 text-center">Shaxsiy ma'lumotlar</div>
@@ -22,9 +25,15 @@
 								placeholder="Ism familiyasini kiriting"
 							/>
 						</div>
-						<!-- birtday -->
+						<!-- birthday -->
 						<div class="col-6 col-sm-12 mb-20">
-							<input class="input" type="date" v-model="patsient.birthday" />
+							<input
+								class="input"
+								type="text"
+								placeholder="Tug'ilgan kun"
+								onfocus="this.type='date'"
+								v-model="patsient.birthday"
+							/>
 						</div>
 						<!-- region -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -55,6 +64,15 @@
 									{{ district.name }}
 								</option>
 							</select>
+						</div>
+						<!-- address -->
+						<div class="col-6 col-sm-12 mb-20">
+							<input
+								class="input"
+								type="text"
+								v-model="patsient.address"
+								placeholder="Manzilni kiriting"
+							/>
 						</div>
 						<!-- education -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -119,6 +137,8 @@
 						<!-- phone -->
 						<div class="col-6 col-sm-12 mb-20">
 							<input
+								v-maska
+								data-maska="+998 (##) ###-##-##"
 								class="input"
 								type="text"
 								v-model="patsient.phone"
@@ -128,13 +148,15 @@
 						<!-- familyphone -->
 						<div class="col-6 col-sm-12 mb-20">
 							<input
+								v-maska
+								data-maska="+998 (##) ###-##-##"
 								class="input"
 								type="text"
 								v-model="patsient.familyphone"
 								placeholder="Oila a’zolaridan telefon raqam"
 							/>
 						</div>
-						<!-- employment -->
+						<!-- gender -->
 						<div class="col-6 col-sm-12 mb-20">
 							<select
 								class="input"
@@ -150,6 +172,9 @@
 									{{ gender.name }}
 								</option>
 							</select>
+						</div>
+						<div class="col-6 col-sm-12 mb-20">
+							<input type="file" ref="patsientImg" @change="uploadFile" />
 						</div>
 					</section>
 				</div>
@@ -231,9 +256,10 @@
 						<div class="col-6 col-sm-12 mb-20">
 							<input
 								class="input"
-								type="date"
+								type="text"
+								placeholder="Imtiyoz olingan sana"
+								onfocus="this.type='date'"
 								v-model="patsient.privilegeDate"
-								placeholder="Imtiyoz hujjatini kiriting"
 							/>
 						</div>
 						<!-- invalid -->
@@ -266,7 +292,13 @@
 					<section class="row step-2">
 						<!-- arriveDate -->
 						<div class="col-6 col-sm-12 mb-20">
-							<input class="input" type="date" v-model="patsient.arriveDate" />
+							<input
+								class="input"
+								type="text"
+								placeholder="Tashrif sanasi"
+								onfocus="this.type='date'"
+								v-model="patsient.arriveDate"
+							/>
 						</div>
 						<!-- doctor -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -303,7 +335,7 @@
 						<div class="col-6 col-sm-12 mb-20">
 							<input
 								class="input"
-								type="text"
+								type="number"
 								v-model="patsient.weight"
 								placeholder="Vazni"
 							/>
@@ -312,7 +344,7 @@
 						<div class="col-6 col-sm-12 mb-20">
 							<input
 								class="input"
-								type="text"
+								type="number"
 								v-model="patsient.height"
 								placeholder="Bo'yi"
 							/>
@@ -324,21 +356,24 @@
 				<button class="btn danger" @click="clear">Bekor qilish</button>
 				<button
 					class="btn success btn__add"
-					v-if="(patsientEditModalToggle || patsientModalToggle) && step == 1"
+					v-if="
+						(patsientEditModalToggle || patsientModalToggle) &&
+						(step == 1 || step == 2)
+					"
 					@click="nextStep"
 				>
 					Keyingi qadam
 				</button>
 				<button
 					class="btn success btn__add"
-					v-else-if="!patsientEditModalToggle && step == 2"
+					v-else-if="!patsientEditModalToggle && step == 3"
 					@click="postPatsient"
 				>
 					Kiritish
 				</button>
 				<button
 					class="btn success hide btn__edit"
-					v-else-if="patsientEditModalToggle && step == 2"
+					v-else-if="patsientEditModalToggle && step == 3"
 					@click="save()"
 				>
 					Saqlash
@@ -351,11 +386,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { regions, districts } from '@/db/places'
+import { vMaska } from 'maska'
 export default {
 	props: ['editpatsient'],
+	directives: { maska: vMaska },
 	data() {
 		return {
-			step: 3,
+			step: 1,
 			regions: regions,
 			districts: districts,
 			patsient: {
@@ -496,6 +533,7 @@ export default {
 					name: 'Invalid emas',
 				},
 			],
+			image: '',
 		}
 	},
 	methods: {
@@ -515,31 +553,70 @@ export default {
 			}
 		},
 		nextStep() {
-			if (
-				this.patsient.name &&
-				this.patsient.phone &&
-				this.patsient.education &&
-				this.patsient.family &&
-				this.patsient.birthday &&
-				this.patsient.district &&
-				this.patsient.region
-			) {
-				this.step = 2
-			} else {
-				this.$store.commit('setNotif', {
-					type: 'warning',
-					text: 'Barcha maydonlarni to`ldiring',
-				})
+			if (this.step == 1) {
+				if (
+					this.patsient.name &&
+					this.patsient.birthday &&
+					this.patsient.region &&
+					this.patsient.district &&
+					this.patsient.education &&
+					this.patsient.married &&
+					this.patsient.phone &&
+					this.patsient.employment &&
+					this.patsient.workplace &&
+					this.patsient.familyphone &&
+					this.patsient.gender
+				) {
+					this.step = 2
+					return false
+				} else {
+					this.$store.commit('setNotif', {
+						type: 'warning',
+						text: 'Barcha maydonlarni to`ldiring',
+					})
+				}
 			}
+			if (this.step == 2) {
+				if (
+					this.patsient.bloodtype &&
+					this.patsient.factor &&
+					this.patsient.policy &&
+					this.patsient.policecompany &&
+					this.patsient.privilege &&
+					this.patsient.privilegeDoc &&
+					this.patsient.privilegeDate &&
+					this.patsient.invalid &&
+					this.patsient.reactions
+				) {
+					this.step = 3
+				} else {
+					this.$store.commit('setNotif', {
+						type: 'warning',
+						text: 'Barcha maydonlarni to`ldiring',
+					})
+				}
+			}
+		},
+		uploadFile() {
+			this.image = this.$refs.patsientImg.files[0]
 		},
 		postPatsient() {
 			if (
-				this.patsient.education &&
-				this.patsient.family &&
-				this.patsient.worktime &&
-				this.patsient.exp
+				this.patsient.arriveDate &&
+				this.patsient.doctor &&
+				this.patsient.department &&
+				this.patsient.diagnos &&
+				this.patsient.weight &&
+				this.patsient.height
 			) {
-				this.addPatsient(this.patsient)
+				let data = new FormData()
+				for (const key in this.patsient) {
+					data.append(key, this.patsient[key])
+				}
+				data.append('avatar', this.image)
+				console.log(data)
+				console.log(this.patsient)
+				this.addPatsient(data)
 				this.clear()
 			} else {
 				this.$store.commit('setNotif', {
@@ -567,6 +644,8 @@ export default {
 		clear() {
 			if (this.step == 2) {
 				this.step = 1
+			} else if (this.step == 3) {
+				this.step = 2
 			} else {
 				this.$store.commit('setPatsientModalToggle', false)
 				this.$store.commit('setPatsientEditModalToggle', false)

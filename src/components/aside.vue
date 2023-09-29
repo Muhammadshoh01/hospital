@@ -37,7 +37,7 @@ export default {
 				},
 				{
 					link: '/room',
-					title: 'Xonalar',
+					title: 'Palatalar',
 					icon: 'palata',
 				},
 				{
@@ -53,7 +53,12 @@ export default {
 				{
 					link: '/patsient',
 					title: 'Bemorlar',
-					icon: 'doctors',
+					icon: 'bemor side',
+				},
+				{
+					link: '/treatment',
+					title: 'Muolajalar',
+					icon: 'room',
 				},
 			],
 		}

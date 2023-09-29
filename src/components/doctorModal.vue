@@ -25,6 +25,8 @@
 						<!-- phone -->
 						<div class="col-6 col-sm-12 mb-20">
 							<input
+								v-maska
+								data-maska="+998 (##) ###-##-##"
 								class="input"
 								type="text"
 								v-model="doctor.phone"
@@ -67,7 +69,14 @@
 						</div>
 						<!-- birtday -->
 						<div class="col-6 col-sm-12 mb-20">
-							<input class="input" type="date" v-model="doctor.birthday" />
+							<input
+								class="input"
+								type="text"
+								placeholder="Tug`ilgan kun"
+								onfocus="(this.type='date')"
+								onblur="(this.type='text')"
+								v-model="doctor.birthday"
+							/>
 						</div>
 						<!-- region -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -94,6 +103,10 @@
 									{{ district.name }}
 								</option>
 							</select>
+						</div>
+						<!-- file -->
+						<div class="col-6 col-sm-12 mb-20">
+							<input type="file" ref="doctorImg" @change="uploadFile" />
 						</div>
 					</section>
 				</div>
@@ -158,9 +171,10 @@
 						<!-- startTime -->
 						<div class="col-6 col-sm-12 mb-20">
 							<input
-								placeholder="Ishga kirgan vaqt"
 								class="input"
-								type="date"
+								type="text"
+								placeholder="Ishga kirgan vaqt"
+								onfocus="(this.type='date')"
 								v-model="doctor.startTime"
 							/>
 						</div>
@@ -198,8 +212,11 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { regions, districts } from '@/db/places'
+import { vMaska } from 'maska'
+
 export default {
 	props: ['editdoctor'],
+	directives: { maska: vMaska },
 	data() {
 		return {
 			step: 1,
@@ -254,6 +271,7 @@ export default {
 					name: 'O`rindosh',
 				},
 			],
+			image: '',
 		}
 	},
 	methods: {
@@ -264,6 +282,9 @@ export default {
 			'getAllDepartments',
 			'getAllSpecs',
 		]),
+		uploadFile() {
+			this.image = this.$refs.doctorImg.files[0]
+		},
 		getRegion() {
 			if (this.doctor.region) {
 				this.getDistricts = this.districts.filter((district) => {
@@ -296,7 +317,14 @@ export default {
 				this.doctor.worktime &&
 				this.doctor.exp
 			) {
-				this.addDoctor(this.doctor)
+				let data = new FormData()
+				for (const key in this.doctor) {
+					data.append(key, this.doctor[key])
+				}
+				data.append('file', this.image)
+				console.log(data)
+				console.log(this.doctor)
+				this.addDoctor(data)
 				this.clear()
 			} else {
 				this.$store.commit('setNotif', {
@@ -314,8 +342,9 @@ export default {
 				region: '',
 				district: '',
 				department: '',
-				family: '',
 				education: '',
+				family: '',
+				worktime: '',
 			}
 			this.step = 1
 			this.$store.commit('setDoctorModalToggle', false)
@@ -332,8 +361,9 @@ export default {
 					region: '',
 					district: '',
 					department: '',
-					family: '',
 					education: '',
+					family: '',
+					worktime: '',
 				}
 			}
 		},
