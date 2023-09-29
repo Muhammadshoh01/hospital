@@ -1,6 +1,7 @@
 .table {
 	width: 100%;
 	border-collapse: collapse;
+	table-layout: fixed;
 
 	thead {
 		background-color: #e8e8e8;
@@ -42,6 +43,17 @@
 				justify-content: flex-end;
 				align-items: center;
 				gap: 15px;
+			}
+			&.first {
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-right: 10px;
+				img {
+					width: 32px;
+					height: 32px;
+					border-radius: 50%;
+				}
 			}
 		}
 	}
