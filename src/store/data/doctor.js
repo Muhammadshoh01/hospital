@@ -84,10 +84,12 @@ export const doctor = {
 		},
 	},
 	actions: {
+		async getAllStats(context) {
+			return await context.dispatch('getAxios', 'statistic')
+		},
 		async getAllDoctors(context) {
 			let res = await context.dispatch('getAxios', 'doctor')
 			if (res.status == 200) {
-				console.log(res.data)
 				context.commit('setDoctors', res.data)
 			}
 		},
@@ -128,6 +130,12 @@ export const doctor = {
 					type: 'success',
 					text: 'Shifokor yangilandi',
 				})
+			}
+		},
+		async getDoctorExcel(context) {
+			let res = await context.dispatch('getAxios', 'doctor/excel')
+			if (res.status == 200) {
+				context.dispatch('downloadFile', res.data)
 			}
 		},
 	},

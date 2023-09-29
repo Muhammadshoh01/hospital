@@ -100,7 +100,7 @@ export const patsient = {
 				context.commit('newPatsient', res.data)
 				context.commit('setNotif', {
 					type: 'success',
-					text: "Yangi shifokor qo'shildi",
+					text: "Yangi bemor qo'shildi",
 				})
 			}
 		},
@@ -110,7 +110,7 @@ export const patsient = {
 				context.commit('deletePatsient', payload)
 				context.commit('setNotif', {
 					type: 'warning',
-					text: "Shifokor o'chirildi",
+					text: "Bemor o'chirildi",
 				})
 			}
 		},
@@ -126,8 +126,14 @@ export const patsient = {
 				context.commit('updatePatsient', res.data)
 				context.commit('setNotif', {
 					type: 'success',
-					text: 'Shifokor yangilandi',
+					text: 'Bemor yangilandi',
 				})
+			}
+		},
+		async getPatsientExcel(context) {
+			let res = await context.dispatch('getAxios', 'patsient/excel')
+			if (res.status == 200) {
+				context.dispatch('downloadFile', res.data)
 			}
 		},
 	},

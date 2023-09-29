@@ -15,6 +15,7 @@ export const helpers = {
 				.post(`${context.getters.mainUrl}/${payload.url}`, payload.data, {
 					headers: {
 						authorization: `Bearer ${context.getters.token}`,
+						'Content-Type': 'multipart/form-data',
 					},
 				})
 				.catch((e) => {
@@ -54,6 +55,20 @@ export const helpers = {
 						context.commit('setLayout', 'auth')
 					}
 				})
+		},
+		downloadFile(context, link) {
+			axios({
+				url: `${context.getters.mainUrl}/${link}`,
+				method: 'GET',
+				responseType: 'blob',
+			}).then((response) => {
+				let fileUrl = window.URL.createObjectURL(new Blob([response.data]))
+				let fileLink = document.createElement('a')
+				fileLink.href = fileUrl
+				fileLink.setAttribute('download', link)
+				document.body.append(fileLink)
+				fileLink.click()
+			})
 		},
 	},
 }

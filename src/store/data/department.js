@@ -59,7 +59,6 @@ export const department = {
 		async getAllDepartments(context) {
 			let res = await context.dispatch('getAxios', 'department')
 			if (res.status == 200) {
-				console.log(res.data)
 				context.commit('setDepartments', res.data)
 			}
 		},

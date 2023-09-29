@@ -9,6 +9,8 @@ import { doctor } from '../data/doctor'
 import { position } from '../data/position'
 import { historyDoctor } from '../data/historyDoctor'
 import { patsient } from '../data/patsient'
+import { historyPatsient } from '../data/historyPatsient'
+import { treatment } from '../data/treatment'
 
 export const modules = {
 	layout,
@@ -22,4 +24,6 @@ export const modules = {
 	position,
 	historyDoctor,
 	patsient,
+	historyPatsient,
+	treatment,
 }

@@ -3,52 +3,49 @@ import { convertDate } from '../../helpers/incFunc'
 export const historyDoctor = {
 	state() {
 		return {
-			historys: [],
+			doctorHistorys: [],
 			history: {},
-			countHistory: 0,
+			countDoctorHistory: 0,
 		}
 	},
 	getters: {
-		historys(state) {
-			return state.historys
+		doctorHistorys(state) {
+			return state.doctorHistorys
 		},
-		history(state) {
-			return state.history
+		countDoctorHistory(state) {
+			return state.countDoctorHistory
 		},
-		countHistory(state) {
-			return state.countHistory
-		},
-		activeHistorys(state) {
-			return state.historys.filter((history) => history.status == 1)
+		activeDoctorHistory(state) {
+			return state.doctorHistorys.filter((history) => history.status == 1)
 		},
 	},
 	mutations: {
-		setHistorys(state, payload) {
-			state.historys = [
+		setDoctorHistorys(state, payload) {
+			state.doctorHistorys = [
 				...payload.map((item) => {
 					item.createdTime = convertDate(item.createdTime)
 					return item
 				}),
 			]
 		},
-		newHistory(state, payload) {
-			state.historys = [
+		newDoctorHistory(state, payload) {
+			state.doctorHistorys = [
 				{ ...payload, createdTime: convertDate(payload.createdTime) },
-				...state.historys,
+				...state.doctorHistorys,
 			]
 		},
-		updateHistory(state, payload) {
-			state.historys = [
-				...state.historys.map((history) => {
+		updateDoctorHistory(state, payload) {
+			state.doctorHistorys = [
+				...state.doctorHistorys.map((history) => {
 					if (history._id == payload._id)
 						return { ...payload, createdTime: convertDate(payload.createdTime) }
 					return history
 				}),
 			]
 		},
-		deleteHistory(state, payload) {
-			state.historys = [
-				...state.historys.filter((history) => {
+		deleteDoctorHistory(state, payload) {
+			state.doctorHistorys = [
+				...state.doctorHistorys.filter((history) => {
 					if (history._id == payload) return false
 					return history
 				}),
@@ -59,8 +56,7 @@ export const historyDoctor = {
 		async getAllDoctorHistorys(context, payload) {
 			let res = await context.dispatch('getAxios', `history/${payload}`)
 			if (res.status == 200) {
-				console.log(res.data)
-				context.commit('setHistorys', res.data)
+				context.commit('setDoctorHistorys', res.data)
 			}
 		},
 		async addDoctorHistory(context, payload) {
@@ -69,7 +65,7 @@ export const historyDoctor = {
 				data: payload,
 			})
 			if (res.status == 201) {
-				context.commit('newHistory', res.data)
+				context.commit('newDoctorHistory', res.data)
 				context.commit('setNotif', {
 					type: 'success',
 					text: "Shifokor tarixi qo'shildi",
@@ -79,7 +75,7 @@ export const historyDoctor = {
 		async deleteDoctorHistory(context, payload) {
 			let res = await context.dispatch('deleteAxios', `history/${payload}`)
 			if (res.status == 200) {
-				context.commit('deleteHistory', payload)
+				context.commit('deleteDoctorHistory', payload)
 				context.commit('setNotif', {
 					type: 'warning',
 					text: "Shifokor tarixi o'chirildi",
@@ -95,7 +91,7 @@ export const historyDoctor = {
 				data: payload,
 			})
 			if (res.status == 200) {
-				context.commit('updateHistory', res.data)
+				context.commit('updateDoctorHistory', res.data)
 				context.commit('setNotif', {
 					type: 'success',
 					text: 'Shifokor tarixi yangilandi',
