@@ -7,7 +7,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>N</th>
 						<th>Nomi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
@@ -15,7 +14,6 @@
 				</thead>
 				<tbody>
 					<tr v-for="(spec, index) in specs" :key="spec._id">
-						<td>{{ index + 1 }}</td>
 						<td>{{ spec.title }}</td>
 						<td>{{ spec.createdTime }}</td>
 						<td align="right">
@@ -38,7 +36,7 @@
 				<h4 class="text-center mb-20">
 					{{
 						editToggle
-							? 'Mutaxassisslini tahrirlash'
+							? 'Mutaxassisslikni tahrirlash'
 							: "Yangi mutaxassisslik qo'shish"
 					}}
 				</h4>
@@ -55,9 +53,7 @@
 					</div>
 				</form>
 				<div class="modal__footer">
-					<button class="btn danger" @click="toggle = false">
-						Bekor qilish
-					</button>
+					<button class="btn danger" @click="clear">Bekor qilish</button>
 					<button class="btn success btn__add" v-if="!editToggle" @click="add">
 						Kiritish
 					</button>

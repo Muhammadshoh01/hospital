@@ -7,7 +7,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>N</th>
 						<th>Nomi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
@@ -15,7 +14,6 @@
 				</thead>
 				<tbody>
 					<tr v-for="(position, index) in positions" :key="position._id">
-						<td>{{ index + 1 }}</td>
 						<td>{{ position.title }}</td>
 						<td>{{ position.createdTime }}</td>
 						<td align="right">
@@ -36,11 +34,7 @@
 		<div :class="` modal ${toggle ? 'open' : ''}`">
 			<div class="modal__box">
 				<h4 class="text-center mb-20">
-					{{
-						editToggle
-							? 'Mutaxassisslini tahrirlash'
-							: "Yangi mutaxassisslik qo'shish"
-					}}
+					{{ editToggle ? 'Lavozini tahrirlash' : "Yangi lavozim qo'shish" }}
 				</h4>
 				<form id="depart" @submit.prevent="editToggle ? save() : add()">
 					<div class="col-12 col-sm-12 mb-20">
@@ -55,9 +49,7 @@
 					</div>
 				</form>
 				<div class="modal__footer">
-					<button class="btn danger" @click="toggle = false">
-						Bekor qilish
-					</button>
+					<button class="btn danger" @click="clear">Bekor qilish</button>
 					<button class="btn success btn__add" v-if="!editToggle" @click="add">
 						Kiritish
 					</button>
@@ -95,7 +87,7 @@ export default {
 			} else {
 				this.$store.commit('setNotif', {
 					type: 'warning',
-					text: 'Mutaxassisslik nomini kiriting',
+					text: 'Lavozim nomini kiriting',
 				})
 			}
 		},
@@ -118,7 +110,7 @@ export default {
 		},
 		remove(id) {
 			if (confirm("Qaroringiz qat'iymi?")) {
-				this.deleteposition(id)
+				this.deletePosition(id)
 			}
 		},
 	},

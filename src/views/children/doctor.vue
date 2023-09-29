@@ -86,7 +86,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(history, index) in historys" :key="history._id">
+				<tr v-for="(history, index) in doctorHistorys" :key="history._id">
 					<td>{{ history.title }}</td>
 					<td>{{ history.startDate }} - {{ history.endDate }}</td>
 					<td>{{ history.position }}</td>
@@ -107,8 +107,8 @@
 			<h4 class="text-center mb-20">
 				{{
 					doctorEditHistoryToggle
-						? "Shifokorni ma'lumotlaini tahrirlash"
-						: 'Yangi shifokorni ro’yhatdan o’tkazish'
+						? "Shifokorni tarixi ma'lumotlaini tahrirlash"
+						: 'Shifokorning yangi tarixini ro’yhatdan o’tkazish'
 				}}
 			</h4>
 			<form
@@ -119,13 +119,23 @@
 					<section class="row step-1">
 						<!-- startDate -->
 						<div class="col-6 col-sm-12 mb-20">
-							<label>Ishga kirgan sana</label>
-							<input class="input" type="date" v-model="history.startDate" />
+							<input
+								class="input"
+								type="text"
+								placeholder="Ishga kirgan sana"
+								onfocus='this.type="date"'
+								v-model="history.startDate"
+							/>
 						</div>
 						<!-- endDate -->
 						<div class="col-6 col-sm-12 mb-20">
-							<label>Ishni tugatgan sanasi</label>
-							<input class="input" type="date" v-model="history.endDate" />
+							<input
+								class="input"
+								type="text"
+								placeholder="Ishni tugatgan sanasi"
+								onfocus='this.type="date"'
+								v-model="history.endDate"
+							/>
 						</div>
 						<!-- position -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -230,7 +240,7 @@ export default {
 			'specs',
 			'positions',
 			'departments',
-			'historys',
+			'doctorHistorys',
 			'doctorHistoryToggle',
 			'doctorEditHistoryToggle',
 		]),

@@ -7,7 +7,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>N</th>
 						<th>Nomi</th>
 						<th>Yaratilgan vaqt</th>
 						<th></th>
@@ -15,7 +14,6 @@
 				</thead>
 				<tbody>
 					<tr v-for="(department, index) in departments" :key="department._id">
-						<td>{{ index + 1 }}</td>
 						<td>{{ department.title }}</td>
 						<td>{{ department.createdTime }}</td>
 						<td align="right">
@@ -99,7 +97,7 @@ export default {
 		clear() {
 			this.toggle = false
 			this.editToggle = false
-			this.department.title = ''
+			this.department = {}
 		},
 		async edit(id) {
 			let res = await this.getDepartment(id)

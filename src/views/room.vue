@@ -7,7 +7,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>N</th>
 						<th>Xona raqami</th>
 						<th>Bo'lim</th>
 						<th>Sig'imi</th>
@@ -17,7 +16,6 @@
 				</thead>
 				<tbody>
 					<tr v-for="(room, index) in rooms" :key="room._id">
-						<td>{{ index + 1 }}</td>
 						<td>{{ room.number }}</td>
 						<td>{{ room.department }}</td>
 						<td>{{ room.maxcount }}</td>
@@ -49,6 +47,7 @@
 							type="text"
 							v-model="room.number"
 							placeholder="Xona raqamini kiriting"
+							@keypress.enter="editToggle ? save() : postRoom()"
 						/>
 					</div>
 					<div class="col-6 col-sm-12 mb-20">
@@ -57,10 +56,15 @@
 							type="text"
 							v-model="room.maxcount"
 							placeholder="Xona sig'imini kiriting"
+							@keypress.enter="editToggle ? save() : postRoom()"
 						/>
 					</div>
 					<div class="col-6 col-sm-12 mb-20">
-						<select class="input" v-model="room.department">
+						<select
+							class="input"
+							v-model="room.department"
+							@keypress.enter="editToggle ? save() : postRoom()"
+						>
 							<option value="">Ro'yxatdan tanlang</option>
 							<option
 								v-for="department in departments"

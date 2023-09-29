@@ -3,33 +3,40 @@
 		<div class="box">
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="title">Shifokorlar</div>
+				<div>
+					<button @click="getDoctorExcel" class="excel btn">
+						<img src="@/assets/img/excelIcon.svg" />
+						Excel
+					</button>
+				</div>
 			</div>
 			<table class="table">
 				<thead>
 					<tr>
-						<th>№</th>
 						<th>Ism-sharif</th>
 						<th>Raqami</th>
 						<th>Bo'lim</th>
 						<th>Mutaxassisslik</th>
 						<th>Tug'ilgan yili</th>
-						<th>Sana</th>
+						<th>Ishga kirgan sana</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr
-						v-for="(doctor, index) in doctors"
+						v-for="doctor in doctors"
 						:key="doctor._id"
 						@click="$router.push(`/doctor/${doctor._id}`)"
 					>
-						<td>{{ index + 1 }}</td>
-						<td>{{ doctor.name }}</td>
+						<td class="first">
+							<img :src="`http://95.130.227.52:3112/${doctor.file[0]}`" />
+							{{ doctor.name }}
+						</td>
 						<td>{{ doctor.phone }}</td>
 						<td>{{ doctor.department }}</td>
 						<td>{{ doctor.spec }}</td>
 						<td>{{ doctor.birthday }}</td>
-						<td>{{ doctor.createdTime }}</td>
+						<td>{{ doctor.startTime }}</td>
 						<td>
 							<button @click.stop="$router.push(`/doctor/${doctor._id}`)">
 								<img src="../assets/img/eye.svg" />
@@ -63,7 +70,12 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['getAllDoctors', 'deleteDoctor', 'getDoctor']),
+		...mapActions([
+			'getAllDoctors',
+			'deleteDoctor',
+			'getDoctor',
+			'getDoctorExcel',
+		]),
 		async edit(id) {
 			let res = await this.getDoctor(id)
 			if (res?.status == 200) {

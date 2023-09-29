@@ -3,7 +3,7 @@
 		<!-- {{ patsient }} -->
 		<div class="patsient__head">
 			<div>
-				<img src="../../assets/img/doc.png" />
+				<img :src="`http://95.130.227.52:3112/${patsient.avatar}`" />
 			</div>
 			<div class="patsient__data">
 				<div class="patsient__name">{{ patsient.name }}</div>
@@ -180,8 +180,14 @@
 					<section class="row step-1">
 						<!-- date -->
 						<div class="col-6 col-sm-12 mb-20">
-							<!-- <label>Davolanish sana</label> -->
-							<input class="input" type="date" v-model="patsientHistory.date" />
+							<!-- <label>Davolanish sanasi</label> -->
+							<input
+								class="input"
+								type="text"
+								placeholder="Davolanish sanasi"
+								onfocus="this.type='date'"
+								v-model="patsientHistory.date"
+							/>
 						</div>
 						<!-- doctor -->
 						<div class="col-6 col-sm-12 mb-20">
@@ -492,6 +498,7 @@ export default {
 		border-bottom: 1px solid #bdbdbd;
 		img {
 			height: 100%;
+			width: 200px;
 		}
 	}
 	&__data {

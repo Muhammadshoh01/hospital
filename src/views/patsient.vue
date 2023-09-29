@@ -3,33 +3,40 @@
 		<div class="box">
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="title">Bemorlar</div>
+				<div>
+					<button @click="getPatsientExcel" class="excel btn">
+						<img src="@/assets/img/excelIcon.svg" />
+						Excel
+					</button>
+				</div>
 			</div>
 			<table class="table">
 				<thead>
 					<tr>
-						<th>№</th>
 						<th>Ism-sharif</th>
 						<th>Raqami</th>
-						<th>Bo'lim</th>
-						<th>Mutaxassisslik</th>
-						<th>Tug'ilgan yili</th>
 						<th>Sana</th>
+						<th>Shifokor</th>
+						<th>Bo'lim</th>
+						<th>Sabab</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- <tr
+					<tr
 						v-for="(patsient, index) in patsients"
 						:key="patsient._id"
 						@click="$router.push(`/patsient/${patsient._id}`)"
 					>
-						<td>{{ index + 1 }}</td>
-						<td>{{ patsient.name }}</td>
+						<td class="first">
+							<img :src="`http://95.130.227.52:3112/${patsient.avatar}`" />
+							{{ patsient.name }}
+						</td>
 						<td>{{ patsient.phone }}</td>
+						<td>{{ patsient.arriveDate }}</td>
+						<td>{{ patsient.doctor }}</td>
 						<td>{{ patsient.department }}</td>
-						<td>{{ patsient.spec }}</td>
-						<td>{{ patsient.birthday }}</td>
-						<td>{{ patsient.createdTime }}</td>
+						<td>{{ patsient.diagnos }}</td>
 						<td>
 							<button @click.stop="$router.push(`/patsient/${patsient._id}`)">
 								<img src="../assets/img/eye.svg" />
@@ -41,7 +48,7 @@
 								<img src="../assets/img/remove.svg" />
 							</button>
 						</td>
-					</tr> -->
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -63,7 +70,12 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(['getAllPatsients', 'deletePatsient', 'getPatsient']),
+		...mapActions([
+			'getAllPatsients',
+			'deletePatsient',
+			'getPatsient',
+			'getPatsientExcel',
+		]),
 		async edit(id) {
 			let res = await this.getPatsient(id)
 			if (res?.status == 200) {
