@@ -1,6 +1,5 @@
 <template>
 	<div class="patsient">
-		<!-- {{ patsient }} -->
 		<div class="patsient__head">
 			<div>
 				<img :src="`http://95.130.227.52:3112/${patsient.avatar}`" />
@@ -130,7 +129,7 @@
 
 			<button class="patsient__work" @click="openModal">
 				<span>+</span>
-				Yangi ish faoliyat tarixi
+				Yangi kasallik tarixi
 			</button>
 		</div>
 		<table class="table">
@@ -166,8 +165,8 @@
 			<h4 class="text-center mb-20">
 				{{
 					patsientEditHistoryToggle
-						? "Shifokorni ma'lumotlaini tahrirlash"
-						: 'Yangi shifokorni ro’yhatdan o’tkazish'
+						? "Bemorni ma'lumotlarini tahrirlash"
+						: 'Yangi bemorni ro’yhatdan o’tkazish'
 				}}
 			</h4>
 			<form
@@ -496,9 +495,11 @@ export default {
 	&__head {
 		display: flex;
 		border-bottom: 1px solid #bdbdbd;
+		height: 216px;
 		img {
 			height: 100%;
 			width: 200px;
+			object-fit: cover;
 		}
 	}
 	&__data {

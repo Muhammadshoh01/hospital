@@ -2,7 +2,7 @@
 	<div class="doctor">
 		<div class="doctor__head">
 			<div>
-				<img src="../../assets/img/doc.png" />
+				<img :src="`http://95.130.227.52:3112/${doctor.file}`" />
 			</div>
 			<div class="doctor__data">
 				<div class="doctor__name">{{ doctor.name }}</div>
@@ -107,7 +107,7 @@
 			<h4 class="text-center mb-20">
 				{{
 					doctorEditHistoryToggle
-						? "Shifokorni tarixi ma'lumotlaini tahrirlash"
+						? "Shifokorni tarixi ma'lumotlarini tahrirlash"
 						: 'Shifokorning yangi tarixini ro’yhatdan o’tkazish'
 				}}
 			</h4>
@@ -340,6 +340,7 @@ export default {
 					this.doctor.district = dis.name
 				}
 			})
+			// this.doctor.file = this.doctor?.file[0]
 		}
 	},
 }
@@ -350,10 +351,11 @@ export default {
 	background: #fff;
 	box-shadow: 0px 12px 26px 0px rgba(16, 30, 115, 0.06);
 	&__head {
+		height: 216px;
 		display: flex;
 		border-bottom: 1px solid #bdbdbd;
 		img {
-			height: 100%;
+			height: 216px;
 		}
 	}
 	&__data {

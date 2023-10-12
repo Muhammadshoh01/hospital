@@ -1,8 +1,18 @@
 .table {
 	width: 100%;
 	border-collapse: collapse;
-	table-layout: fixed;
-
+	// table-layout: fixed;
+	&.home {
+		tbody {
+			td {
+				&:last-child {
+					text-align: left;
+					justify-content: flex-start;
+					padding-left: 0;
+				}
+			}
+		}
+	}
 	thead {
 		background-color: #e8e8e8;
 		th {

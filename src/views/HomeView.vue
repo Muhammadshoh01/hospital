@@ -34,7 +34,7 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="title">Bemorlar</div>
 			</div>
-			<table class="table">
+			<table class="table home">
 				<thead>
 					<tr>
 						<th>Ism-sharif</th>
@@ -42,14 +42,12 @@
 						<th>Sana</th>
 						<th>Shifokor</th>
 						<th>Sabab</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr
 						v-for="(patsient, index) in statistics.patsients"
 						:key="patsient._id"
-						@click="$router.push(`/patsient/${patsient._id}`)"
 					>
 						<td class="first">
 							<img :src="`http://95.130.227.52:3112/${patsient.avatar}`" />
@@ -59,14 +57,6 @@
 						<td>{{ patsient.arriveDate }}</td>
 						<td>{{ patsient.doctor }}</td>
 						<td>{{ patsient.diagnos }}</td>
-						<td>
-							<button @click.stop="edit(patsient._id)">
-								<img src="../assets/img/edit.svg" />
-							</button>
-							<button @click.stop="remove(patsient._id)">
-								<img src="../assets/img/remove.svg" />
-							</button>
-						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -75,7 +65,7 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="title">Shifokorlar</div>
 			</div>
-			<table class="table">
+			<table class="table home">
 				<thead>
 					<tr>
 						<th>Ism-sharif</th>
@@ -83,15 +73,10 @@
 						<th>Bo'lim</th>
 						<th>Mutaxassisslik</th>
 						<th>Ish grafigi</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr
-						v-for="(doctor, index) in statistics.doctors"
-						:key="doctor._id"
-						@click="$router.push(`/doctor/${doctor._id}`)"
-					>
+					<tr v-for="(doctor, index) in statistics.doctors" :key="doctor._id">
 						<td class="first">
 							<img :src="`http://95.130.227.52:3112/${doctor.file[0]}`" />
 							{{ doctor.name }}
@@ -100,14 +85,6 @@
 						<td>{{ doctor.department }}</td>
 						<td>{{ doctor.spec }}</td>
 						<td>{{ doctor.worktime }}</td>
-						<td>
-							<button @click.stop="edit(doctor._id)">
-								<img src="../assets/img/edit.svg" />
-							</button>
-							<button @click.stop="remove(doctor._id)">
-								<img src="../assets/img/remove.svg" />
-							</button>
-						</td>
 					</tr>
 				</tbody>
 			</table>
@@ -160,6 +137,13 @@ export default {
 </script>
 
 <style scoped lang="scss">
+// table {
+// 	td {
+// 		&:last-child {
+// 			text-align: left !important;
+// 		}
+// 	}
+// }
 .head {
 	.stats {
 		display: flex;
@@ -169,11 +153,11 @@ export default {
 		.stat {
 			display: flex;
 			align-items: center;
-			gap: 35px;
+			gap: 25px;
 			background-color: #fff;
-			padding: 20px 26px;
+			padding: 20px;
 			border-radius: 8px;
-			max-width: 280px;
+			max-width: 240px;
 			width: 100%;
 			// height: 88px;
 			div {

@@ -4,7 +4,7 @@
 			<h4 class="text-center mb-20">
 				{{
 					doctorEditModalToggle
-						? "Shifokorni ma'lumotlaini tahrirlash"
+						? "Shifokorni ma'lumotlarini tahrirlash"
 						: 'Yangi shifokorni ro’yhatdan o’tkazish'
 				}}
 			</h4>

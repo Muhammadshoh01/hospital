@@ -4,7 +4,7 @@
 			<h4 class="text-center mb-20">
 				{{
 					patsientEditModalToggle
-						? "Bemorni ma'lumotlaini tahrirlash"
+						? "Bemorni ma'lumotlarini tahrirlash"
 						: 'Yangi bemorni ro’yxatdan o’tkazish'
 				}}
 			</h4>
